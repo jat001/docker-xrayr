@@ -1,0 +1,22 @@
+# other yaml files in `conf.d/` will be merged into this file
+
+Log:
+  Level: info
+  AccessPath: /dev/stdout
+  ErrorPath: /dev/stderr
+
+DnsConfigPath: /tmp/xrayr/dns.json
+RouteConfigPath: /tmp/xrayr/routing.json
+
+InboundConfigPath: /tmp/xrayr/inbound.json
+OutboundConfigPath: /tmp/xrayr/outbound.json
+
+ConnectionConfig:
+  Handshake: 4
+  ConnIdle: 10
+  UplinkOnly: 2
+  DownlinkOnly: 4
+  BufferSize: 64
+
+# Nodes config should be placed in `node.d/`
+Nodes:

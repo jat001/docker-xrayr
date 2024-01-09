@@ -1,0 +1,3 @@
+// inbound controlled by upstream (sspanel, v2board, etc)
+// leave it blank if you don't have a custom inbound
+[]

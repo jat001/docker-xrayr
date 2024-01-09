@@ -1,0 +1,17 @@
+{
+  "domainStrategy": "IPOnDemand",
+  "rules": [
+    {
+      "type": "field",
+      "outboundTag": "block",
+      "ip": ["geoip:private"]
+    },
+    {
+      "type": "field",
+      "outboundTag": "block",
+      // protocol detection requires `sniffing` on inbound, does xrayr enable it by default?
+      "protocol": ["bittorrent"]
+    }
+    // if traffic doesn't match any of the rules above, it will be routed to the default outbound
+  ]
+}

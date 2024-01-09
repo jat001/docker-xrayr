@@ -1,0 +1,30 @@
+[
+  // first outbound will be used as the default
+  {
+    "tag": "outbound_all",
+    "protocol": "freedom"
+  },
+  // currently using `SendIP` in xrayr, need to find out which one is better
+  {
+    "tag": "outbound_ipv4",
+    "protocol": "freedom",
+    "settings": {
+      // what's the difference between `domainStrategy: UseIPv4v6` and `sendThrough: 0.0.0.0`?
+      // what's the difference between `UseIPv4` and `UseIPv4v6`? or is it just an alias?
+      // maybe this pr will help to understand: https://github.com/XTLS/Xray-core/pull/2720
+      "domainStrategy": "UseIPv4v6"
+    }
+  },
+  {
+    "tag": "outbound_ipv6",
+    "protocol": "freedom",
+    "settings": {
+      // does `sendThrough: ::` also work?
+      "domainStrategy": "UseIPv6v4"
+    }
+  },
+  {
+    "tag": "outbound_block",
+    "protocol": "blackhole"
+  }
+]

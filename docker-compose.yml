@@ -1,8 +1,16 @@
 version: '3'
-services: 
-  xrayr: 
-    image: ghcr.io/xrayr-project/xrayr:latest
+
+services:
+  xrayr:
+    image: jat001/xrayr:latest
+    ports:
+      # mark sure `offset_port_node` on sspanel is this port
+      - '443:443'
     volumes:
-      - ./config:/etc/XrayR/ # 映射配置文件夹
+      - ./conf.d:/etc/xrayr/conf.d
+      - ./node.d:/etc/xrayr/node.d
+      - xrayr:/tmp/xrayr
     restart: always
-    network_mode: host
+
+volumes:
+  xrayr:

@@ -4,11 +4,8 @@ XrayR in Docker container
 
 ## Usage
 
-Let Docker manage logs:
+## IPv6
 
-```yaml
-Log:
-  Level: info
-  AccessPath: /dev/stdout
-  ErrorPath: /dev/stderr
-```
+Enable IPv6 support for Docker daemon:
+
+See [Docker documentation](https://docs.docker.com/config/daemon/ipv6/) for more information.

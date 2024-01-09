@@ -12,7 +12,9 @@ COPY --chown=xrayr:xrayr ./config /etc/xrayr
 RUN mkdir /etc/xrayr/conf.d /etc/xrayr/node.d
 COPY ./docker-entrypoint.sh /
 
+VOLUME ["/tmp/xrayr"]
 HEALTHCHECK --interval=20s --timeout=2s --start-period=10s --retries=4 \
     CMD curl -fsS https://localhost:443 && echo 'ok'
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["xrayr", "-c", "/tmp/xrayr/config.yaml"]

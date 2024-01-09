@@ -6,6 +6,11 @@ services:
     ports:
       # mark sure `offset_port_node` on sspanel is this port
       - '443:443'
+    environment:
+      # use `NODES=*.yaml` for all nodes
+      # or `NODES={10-mynode1,20-mynode2}.yaml` for specific nodes
+      # or `NODES=10-mynode1.yaml` for a single node
+      - NODES=$NODES
     volumes:
       - ./conf.d:/etc/xrayr/conf.d
       - ./node.d:/etc/xrayr/node.d

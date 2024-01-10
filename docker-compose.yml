@@ -5,7 +5,9 @@ services:
     image: jat001/xrayr:latest
     network_mode: host
     environment:
-      - NODES=$NODES
+      - TZ=Asia/Shanghai
+    env_file:
+      - .env
     volumes:
       - ./conf.d:/etc/xrayr/conf.d
       - ./node.d:/etc/xrayr/node.d

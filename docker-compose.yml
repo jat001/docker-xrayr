@@ -3,13 +3,8 @@ version: '3'
 services:
   xrayr:
     image: jat001/xrayr:latest
-    ports:
-      # mark sure `offset_port_node` on sspanel is this port
-      - '443:443'
+    network_mode: host
     environment:
-      # use `NODES=*.yaml` for all nodes
-      # or `NODES={10-mynode1,20-mynode2}.yaml` for specific nodes
-      # or `NODES=10-mynode1.yaml` for a single node
       - NODES=$NODES
     volumes:
       - ./conf.d:/etc/xrayr/conf.d

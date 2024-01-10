@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 set -euxo pipefail
-shopt -s extglob
-
-: "${NODES:=*.yaml}"
 
 etc=/etc/xrayr
 tmp=/tmp/xrayr
@@ -31,22 +28,14 @@ files_exist "$etc"/*.json &&
 files_exist "$etc/conf.d"/*.yaml &&
     yq_eval_all "$etc/config.yaml" "$etc/conf.d/"*.yaml >"$tmp/config.yaml"
 
-files_exist "$etc/node.d"/*.yaml && {
-    default_file="$etc/node.d/00-default.yaml"
+files_exist "$etc/node.d"/*.yaml &&
+    yq_eval_all "$etc/node.yaml" "$etc/node.d/"*.yaml >"$tmp/node.yaml"
 
-    for file in $(eval echo "$etc/node.d/$NODES"); do
-        [ "$file" == "$default_file" ] && continue
-
-        new_file="/tmp/xrayr/nodes/$(basename "$file")"
-        if [ -f "$default_file" ]; then
-            yq_eval_all "$default_file" "$file" >"$new_file"
-        else
-            cp "$file" "$new_file"
-        fi
-
-        yq -i '.Nodes += [ load("'"$new_file"'") ]' /tmp/xrayr/config.yaml
-    done
-}
+IFS="," read -r -a node_arr <<<"$NODES"
+for node in "${node_arr[@]}"; do
+    yq ".ApiConfig.NodeID = $node" "$tmp/node.yaml" >"$tmp/nodes/$node.yaml"
+    yq -i '.Nodes += [ load("'"$tmp/nodes/$node.yaml"'") ]' "$tmp/config.yaml"
+done
 
 yq -i '... comments=""' "$tmp/config.yaml"
 

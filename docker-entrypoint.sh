@@ -2,6 +2,9 @@
 
 set -euxo pipefail
 
+: "${NODES:=}"
+: "${PREFER_V6:=0}"
+
 etc=/etc/xrayr
 tmp=/tmp/xrayr
 
@@ -34,6 +37,7 @@ files_exist "$etc/node.d"/*.yaml &&
 IFS="," read -r -a node_arr <<<"$NODES"
 for node in "${node_arr[@]}"; do
     yq ".ApiConfig.NodeID = $node" "$tmp/node.yaml" >"$tmp/nodes/$node.yaml"
+    [ "$PREFER_V6" -gt 0 ] && yq -i '.ControllerConfig.SendIP = "::"' "$tmp/nodes/$node.yaml"
     yq -i '.Nodes += [ load("'"$tmp/nodes/$node.yaml"'") ]' "$tmp/config.yaml"
 done
 

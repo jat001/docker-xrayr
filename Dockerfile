@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM alpine:edge
+FROM alpine:latest
 
 RUN apk add --no-cache bash curl && rm -rf /var/cache/apk/*
 

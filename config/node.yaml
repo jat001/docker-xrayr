@@ -50,7 +50,7 @@ ControllerConfig:
       ProxyProtocolVer: 0
 
   CertConfig:
-    CertMode: dns
+    CertMode: file
     RejectUnknownSni: false
     CertDomain: example.com
     CertFile: /tmp/xrayr/cert/example.com.cert

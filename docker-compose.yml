@@ -11,8 +11,5 @@ services:
     volumes:
       - ./conf.d:/etc/xrayr/conf.d
       - ./node.d:/etc/xrayr/node.d
-      - xrayr:/tmp/xrayr
+      - ./xrayr:/tmp/xrayr
     restart: always
-
-volumes:
-  xrayr:
